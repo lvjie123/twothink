@@ -1,0 +1,54 @@
+{extend name="public/base" /}
+
+{block name="body"}
+    <div class="main-title">
+        <h2>{:isset($info['id'])?'编辑':'新增'}报修</h2>
+    </div>
+    <form action="{:url()}" method="post" class="form-horizontal">
+        <div class="form-item">
+            <label class="item-label">标题<span class="check-tips">（保修标题）</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="title" value="{$info.title|default=''}">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">名字<span class="check-tips">（用户名字）</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="name" value="{$info.name|default=''}">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">电话<span class="check-tips">（用户电话）</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="phone" value="{$info.phone|default=''}">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">地址<span class="check-tips">（用户地址）</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="address" value="{$info.address|default=''}">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">说明<span class="check-tips">（报修说明）</span></label>
+            <div class="controls">
+                <textarea class="text input-large" name="content" style="height: 50px">{$info.content|default=''}</textarea>
+            </div>
+        </div>
+        <div class="form-item">
+            <input type="hidden" name="id" value="{$info.id|default=''}">
+            <button class="btn submit-btn ajax-posts" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </form>
+{/block}
+
+{block name="script"}
+    <script type="text/javascript">
+        Think.setValue("pid", {$info.pid|default = 0});
+        Think.setValue("hide", {$info.hide|default = 0});
+        Think.setValue("is_dev", {$info.is_dev|default = 0});
+        //导航高亮
+        highlight_subnav('{:url('index')}');
+    </script>
+{/block}

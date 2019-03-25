@@ -21,12 +21,18 @@ class Index extends Home{
     public function index(){
         $category = model('Category')->getTree();
         $document = new Document();
-        $lists    = $document->lists(null);
+        $lists = $document->lists(null);
         $this->assign('category',$category);//栏目
         $this->assign('lists',$lists);//列表
         $this->assign('page',model('Document')->page);//分页
-
         return $this->fetch();
     }
 
+    public function service(){
+        return $this->fetch();
+    }
+
+    public function notice(){
+
+    }
 }

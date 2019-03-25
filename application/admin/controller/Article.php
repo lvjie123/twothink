@@ -374,7 +374,6 @@ class Article extends Admin {
     public function add(){
         //获取左边菜单
         $this->getMenu();
-
         $cate_id    =   input('cate_id',0);
         $model_id   =   input('model_id',0);
 		$group_id	=	input('group_id','');

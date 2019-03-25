@@ -41,9 +41,15 @@ class Document extends Base {
     protected function setPositionAttr($value){
         return $this->getPosition($value);
     }
-    protected function setDeadlineAttr($value){
-        return strtotime($value);
+
+//    protected function setDeadlineAttr($value){
+//        return strtotime($value);
+//    }
+
+    protected function getDeadlineAttr($value){
+        return date('Y-m-d H:i',$value);
     }
+
     protected function setUpdateTimeAttr(){
         return time();
     }

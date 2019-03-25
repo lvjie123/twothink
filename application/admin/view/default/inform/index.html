@@ -1,0 +1,143 @@
+{extend name="public/base" /}
+{block name="body"}
+<!-- 标题栏 -->
+<div class="main-title">
+    <h2>报修管理</h2>
+</div>
+
+<div class="cf">
+    <div class="fl">
+        <div class="btn-group">
+            <a class="btn" href="{:url('add')}">新 增</a>
+        </div>
+        <button class="btn ajax-post" target-form="ids" url="/admin/article/setstatus/status/1/cate_id/43.html">启 用</button>
+        <button class="btn ajax-post" target-form="ids" url="/admin/article/setstatus/status/0/cate_id/43.html">禁 用</button>
+        <!-- <button class="btn ajax-post" target-form="ids" url="/admin/article/move.html">移 动</button>
+        <button class="btn ajax-post" target-form="ids" url="/admin/article/copy.html">复 制</button>
+        <button class="btn ajax-post" target-form="ids" hide-data="true" url="/admin/article/paste.html">粘 贴</button> -->
+        <input type="hidden" class="hide-data" name="cate_id" value="43"/>
+        <input type="hidden" class="hide-data" name="pid" value="0"/>
+        <button class="btn ajax-post confirm" target-form="ids" url="/admin/article/setstatus/status/-1/cate_id/43.html">删 除</button>
+        <!-- <button class="btn document_add" url="/admin/article/batchoperate/cate_id/43/pid/0.html">导入</button> -->
+        <button class="btn list_sort" url="/admin/article/sort/cate_id/43/pid/0">排序</button>
+        <div class="btn-group">
+            <a class="btn" href="/admin/article/recycle/model_id/2.html">回收站</a>
+        </div>
+    </div>
+
+    <!-- 高级搜索 -->
+    <div class="search-form fr cf">
+        <div class="sleft">
+            <input type="text" name="title" class="search-input" value="{:input('title')}" placeholder="请输入标题">
+            <a class="sch-btn" href="javascript:;" id="search" url="{:url('index')}"><i class="btn-search"></i></a>
+        </div>
+    </div>
+</div>
+
+
+<!-- 数据列表 -->
+<div class="data-table">
+    <table class="">
+        <thead>
+        <tr>
+            <th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+            <th class="">ID</th>
+            <th class="">标题</th>
+            <th class="">类型</th>
+            <th class="">最后更新</th>
+            <th class="">状态</th>
+            <th class="">浏览</th>
+            <th class="">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {notempty name="_list"}
+        {volist name="_list" id="vo"}
+        <tr>
+            <td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}" /></td>
+            <td>{$vo.id}</td>
+            <td>{$vo.title}</td>
+            <td>{$vo.type}</td>
+            <td>{$vo.update}</td>
+            <?php
+                if($vo.status==0){
+                ?>
+            <td>正常</td>
+            <?php
+                }else{
+                ?>
+            <td>异常</td>
+            <?php
+                }
+            ?>
+
+            <td>{$vo.click}</td>
+            <td>
+                <a title="编辑" href="{:url('edit?id='.$vo['id'])}">编辑</a>
+                <a class="confirm ajax-get" href="{:url('del?id='.$vo['id'])}">删除</a>
+            </td>
+        </tr>
+        {/volist}
+        {else/}
+
+        <td colspan="8" class="text-center"> aOh! 暂时还没有内容! </td>
+        {/notempty}
+        </tbody>
+    </table>
+</div>
+<div class="page">
+    <!--{$_list}-->
+</div>
+
+{/block}
+{block name="script"}
+<script type="text/javascript">
+    $(function() {
+        //搜索功能
+        $("#search").click(function() {
+            var url = $(this).attr('url');
+            var query = $('.search-form').find('input').serialize();
+            query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g, '');
+            query = query.replace(/^&/g, '');
+            if (url.indexOf('?') > 0) {
+                url += '&' + query;
+            } else {
+                url += '?' + query;
+            }
+            window.location.href = url;
+        });
+        //回车搜索
+        $(".search-input").keyup(function(e) {
+            if (e.keyCode === 13) {
+                $("#search").click();
+                return false;
+            }
+        });
+        //导航高亮
+        highlight_subnav('{:url('index')}');
+        //点击排序
+        $('.list_sort').click(function(){
+            var url = $(this).attr('url');
+            var ids = $('.ids:checked');
+            var param = '';
+            if(ids.length > 0){
+                var str = new Array();
+                ids.each(function(){
+                    str.push($(this).val());
+                });
+                param = str.join(',');
+            }
+
+            if(url != undefined && url != ''){
+                window.location.href = url + '/ids/' + param;
+            }
+        });
+    });
+    $(function(){
+        $("#action_add").click(function(){
+            window.location.href = $(this).attr('url');
+        })
+    })
+
+</script>
+{/block}

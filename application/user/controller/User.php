@@ -9,6 +9,8 @@
 
 namespace app\user\controller;
 use app\common\controller\UcApi;
+use app\common\logic\DocumentArticle;
+use app\user\model\Member;
 
 /**
  * 用户控制器
@@ -49,4 +51,20 @@ class User extends Base {
         }
     }
 
+
+    public function my(){
+        if(is_login()){
+            $user = Member::find(is_login())->toArray();
+            $this->assign('name',$user['nickname']);
+            return $this->fetch();
+        }else{
+           return view('user/login');
+        }
+    }
+
+    public function forme(){
+        $list = DocumentArticle::find(143)->toArray();
+        $this->assign('content',$list['content']);
+        return $this->fetch();
+    }
 }

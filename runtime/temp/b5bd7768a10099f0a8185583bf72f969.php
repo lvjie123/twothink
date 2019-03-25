@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:93:"E:\PhpStudy\PHPTutorial\WWW\twothink\public/../application/user/view/default/login\index.html";i:1552636818;s:93:"E:\PhpStudy\PHPTutorial\WWW\twothink\public/../application/user/view/default/base\common.html";i:1552637138;s:90:"E:\PhpStudy\PHPTutorial\WWW\twothink\public/../application/user/view/default/base\var.html";i:1496373782;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:93:"E:\PhpStudy\PHPTutorial\WWW\twothink\public/../application/user/view/default/login\index.html";i:1552636818;s:93:"E:\PhpStudy\PHPTutorial\WWW\twothink\public/../application/user/view/default/base\common.html";i:1552702673;s:90:"E:\PhpStudy\PHPTutorial\WWW\twothink\public/../application/user/view/default/base\var.html";i:1496373782;}*/ ?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -41,7 +41,7 @@
 </nav>
 
 	<div class="container-fluid">
-	        
+	   
 <section>
   <div class="span12">
     <form class="login-form" action="" method="post">
